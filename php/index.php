@@ -12,34 +12,7 @@
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="jumbotron">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <h1 class="text-center">Art作品集</h1>
-              <ul class="nav nav-pills">
-                <li role="presentation" class="active">
-                  <a href="./">首頁</a>
-                </li>
-                <li role="presentation">
-                  <a href="acticle_list.php">所有文章</a>
-                </li>
-                <li role="presentation">
-                  <a href="work_list.php">所有作品</a>
-                </li>
-                <li role="presentation">
-                  <a href="about.php">關於我們</a>
-                </li>
-                <li role="presentation">
-                  <a href="register.php">註冊</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php include_once 'menu.php'?>
 
     <div class="content">
       <div class="container">
@@ -51,16 +24,7 @@
       </div>
     </div>
 
-    <div class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12">
-            <p class="text-center">&copy; <?php echo date("Y");?> Art公司版權所有</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <?php include_once 'footer.php'?>
 </body>
 
 </html>

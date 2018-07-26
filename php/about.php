@@ -1,9 +1,3 @@
-<?php
-  require_once './db.php';
-  require_once './function.php';
-
-  $article = get_article($_GET['i']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,10 +18,11 @@
     <div class="content">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12">
-            <h1><?php echo $article['title'];?></h1>
-            <hr>
-            <?php echo $article['content'];?>
+          <div class="col-xs-12 col-sm-6">
+            關於我們的資訊a
+          </div>
+          <div class="col-xs-12 col-sm-6">
+            關於我們的資訊b
           </div>
         </div>
       </div>

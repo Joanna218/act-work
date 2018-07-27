@@ -87,3 +87,22 @@
     }
     return $result;
   }
+
+  function add_user($username, $password, $name) {
+    $result = null ;
+    $password = md5($password);
+    $sql = "INSERT INTO `user` (`username`, `password`, `name`)
+                        VALUE ('{$username}', '{$password}', '{$name}')" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

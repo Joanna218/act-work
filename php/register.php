@@ -18,7 +18,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-            <form class="form-horizontal" id="register_form" method="post" action="./php/add_member.php">
+            <form class="form-horizontal" id="register_form" method="post" action="../php/add_member.php">
               <div class="form-group">
                 <label for="userid" class="col-sm-2 control-label">帳號</label>
                 <div class="col-sm-8">
@@ -98,11 +98,28 @@
             return false;
           }else {
             //密碼正確，送出表單
-            $.ajax(
+            $.ajax({
               type : "POST",
-              url : "../php/add_user.php"
-            );
+              url : "../php/add_user.php",
+              data :　{
+                'username' : $('#userid').val(),
+                'password' : $('#Password').val(),
+                'name' : $('#name').val()
+              },
+              dataType : "html"
+            }).done(function(data) {
+              if (data == "yes") {
+                alert('註冊成功，按確認轉跳登入頁面');
+                window.location.href = '../admin/index.php' ;
+              }else {
+                alert('註冊失敗，請重新註冊');
+              }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+              alert('有錯誤產生，請趕快看 console log');
+              console.log(jqHRX, responseText);
+            });
           }
+          return false;
         });
       });
     </script>

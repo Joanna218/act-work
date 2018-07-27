@@ -59,12 +59,49 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
     <script>
       $(function() {
+        $('#userid').on('keyup', function() {
+          if ($(this).val() != '') {
+            $.ajax({
+              type : "POST",
+              url : "../php/check_username.php",
+              data : {
+                'n' : $(this).val()
+              },
+              dataType : "html"
+            }).done(function(data) {
+              if (data == "yes") {
+                //此帳號已存在，不可註冊，變紅色文字框，按鈕不能按
+                $('#userid').parent().parent().removeClass('has-success').addClass('has-error');
+                $('#register_form button').attr('disabled', true);
+              }else {
+                //可以註冊，變綠色文字框，按鈕可以按
+                $('#userid').parent().parent().removeClass('has-error').addClass('has-success');
+                $('#register_form button').attr('disabled', false);
+              }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+              alert('有錯誤產生，請趕快看 console log');
+              console.log(jqHRX, responseText);
+            });
+          }else {
+            $('#userid').parent().parent().removeClass('has-error').removeClass('has-success');
+            $('#register_form button').attr('disabled', false);
+          }
+        });
+
+
         $('#register_form').on('submit', function() {
           if ($('#Password').val() != $('#confirm_password').val()) {
+            //密碼部正確
             alert('密碼有錯誤，請再次確認');
             $('#Password').parent().parent().addClass('has-error');
             $('#confirm_password').parent().parent().addClass('has-error');
             return false;
+          }else {
+            //密碼正確，送出表單
+            $.ajax(
+              type : "POST",
+              url : "../php/add_user.php"
+            );
           }
         });
       });

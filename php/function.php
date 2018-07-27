@@ -70,3 +70,20 @@
     }
     return $result;
   }
+
+  function check_has_username($username) {
+    $result = null ;
+    $sql = "Select * From `user` where `username` = '{$username}'" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_num_rows($query) >= 1) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

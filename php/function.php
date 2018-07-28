@@ -149,3 +149,24 @@
     }
     return $datas;
   }
+
+  function add_article($title, $category, $content, $publish) {
+    $result = null ;
+    $create_date = date('Y-m-d H:i:s');
+    $creater_id = $_SESSION['login_user_id'];
+
+    $sql = "INSERT INTO `article` (`title`, `category`, `content`, `publish`, `create_date`, `creater_id`)
+                        VALUE ('{$title}', '{$category}', '{$content}', {$publish}, '{$create_date}', {$creater_id})" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

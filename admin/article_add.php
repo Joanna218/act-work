@@ -40,7 +40,7 @@
               </div>
               <div class="form-group">
                 <label class="radio-inline">
-                  <input type="radio" name="publish" value="1">發布
+                  <input type="radio" name="publish" value="1" checked>發布
                 </label>
                 <label class="radio-inline">
                   <input type="radio" name="publish" value="0">不發布
@@ -54,6 +54,42 @@
     </div>
 
     <?php include_once 'footer.php'?>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+
+    <script>
+      $(function() {
+
+          $('#article').on('submit', function() {
+            if ($('#title').val() == '' || $('#category').val() == '') {
+              alert('請填妥標題或內文!');
+            }else {
+              $.ajax({
+                type : "POST",
+                url : "../php/add_article.php",
+                data :　{
+                  'title' : $('#title').val(),
+                  'category' : $('#category').val(),
+                  'content' : $('#content').val(),
+                  'publish' : $('input[name="publish"]:checked').val()
+                },
+                dataType : "html"
+              }).done(function(data) {
+                if (data == "yes") {
+                  alert('新增成功，點擊確認回到列表頁');
+                  window.location.href = 'article_list.php' ;
+                }else {
+                  alert('新增失敗');
+                }
+              }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert('有錯誤產生，請趕快看 console log');
+                console.log(jqHRX, responseText);
+              });
+          }
+            return false;
+          });
+      });
+    </script>
 </body>
 
 </html>

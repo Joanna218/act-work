@@ -106,3 +106,24 @@
     }
     return $result;
   }
+
+  function verify_user($username, $password) {
+    $result = null ;
+    $password = md5($password);
+    $sql = "Select * From `user` where `username` = '{$username}' AND `password` = '{$password}'" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_num_rows($query) == 1) {
+        $user = mysqli_fetch_assoc($query);
+        $_SESSION['is_login'] = true;
+        $_SESSION['login_user_id'] = $user['id'];
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

@@ -1,3 +1,10 @@
+<?
+  require_once '../php/db.php';
+
+  if (!isset($_SESSION['is_login']) || !($_SESSION['is_login'])) {
+    header("location: login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 

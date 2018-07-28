@@ -4,24 +4,22 @@
 
   switch ($file_name) {
     case 'article_list':
-      $page_index = 1;
-      break;
-    case 'article':
+    case 'article_edit':
+    case 'article_add':
       $page_index = 1;
       break;
     case 'work_list':
+    case 'work_edit':
+    case 'work_add':
       $page_index = 2;
       break;
-    case 'work':
+    case 'member_list':
+    case 'member_edit':
+    case 'member_add':
       $page_index = 2;
-      break;
-    case 'about':
-      $page_index = 3;
-      break;
-    case 'register':
-      $page_index = 4;
       break;
     default:
+    //預設為首頁
       $page_index = 0;
       break;
   }
@@ -35,7 +33,10 @@
               <h1 class="text-center">Art作品集</h1>
               <ul class="nav nav-pills">
                 <li role="presentation">
-                  <a href="./">首頁</a>
+                  <a href="../php/index.php">前台首頁</a>
+                </li>
+                <li role="presentation" <?php echo ($page_index ==0 )?"class='active'":"class=''"?>>
+                  <a href="./">後台首頁</a>
                 </li>
                 <li role="presentation" <?php echo ($page_index == 1)?"class='active'":"class=''"?>>
                   <a href="article_list.php">所有文章</a>
@@ -44,10 +45,10 @@
                   <a href="work_list.php">所有作品</a>
                 </li>
                 <li role="presentation" <?php echo ($page_index == 3)?"class='active'":"class=''"?>>
-                  <a href="about.php">關於我們</a>
+                  <a href="member_list.php">所有會員</a>
                 </li>
-                <li role="presentation" <?php echo ($page_index == 4)?"class='active'":"class=''"?>>
-                  <a href="register.php">註冊</a>
+                <li role="presentation">
+                  <a href="logout.php">登出</a>
                 </li>
               </ul>
             </div>

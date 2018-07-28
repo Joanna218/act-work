@@ -127,3 +127,25 @@
     }
     return $result;
   }
+
+  //後台管理
+
+  function get_all_article() {
+    //儲存要發布的文章內容
+    $datas = array();
+    $sql = "Select * From `article`" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_num_rows($query) > 0) {
+        while ($row = mysqli_fetch_assoc($query)) {
+          $datas[] = $row;
+        }
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $datas;
+  }

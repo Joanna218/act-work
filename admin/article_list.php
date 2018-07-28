@@ -28,7 +28,7 @@
       <div class="container">
         <div class="row add_btn_area">
           <div class="col-xs-12">
-            <a href="article_add" class="btn btn-primary">新增文章</a>
+            <a href="article_add.php" class="btn btn-primary">新增文章</a>
           </div>
         </div>
         <div class="row">

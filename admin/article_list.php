@@ -66,6 +66,39 @@
     </div>
 
     <?php include_once 'footer.php'?>
+
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+
+    <script>
+      $(function() {
+        $('.del_article').on('click', function() {
+          var ckeck_confirm = confirm("你確定要刪除嗎?"),
+              this_tr =$(this).parent().parent();
+
+          if (ckeck_confirm) {
+            $.ajax({
+              type : "POST" ,
+              url : "../php/del_article.php",
+              data : {
+                'id' : $(this).attr('data-id')
+              },
+              dataType : "html"
+            }).done(function(data) {
+              if (data == "yes") {
+                alert('刪除成功，點擊確認移除資料');
+                this_tr .fadeOut();
+                }else {
+                  alert('刪除成功');
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert('有錯誤產生，請趕快看 console log');
+                console.log(jqHRX, responseText);
+              });
+          }
+        });
+        return false;
+      });
+    </script>
 </body>
 
 </html>

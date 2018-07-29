@@ -211,3 +211,21 @@
     }
     return $result;
   }
+
+  function del_article($id) {
+    $result = null ;
+
+    $sql = "DELETE FROM `article` WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

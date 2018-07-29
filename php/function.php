@@ -185,3 +185,29 @@
     }
     return $result;
   }
+
+  function update_article($id, $title, $category, $content, $publish) {
+    $result = null ;
+    $modify_date = date('Y-m-d H:i:s');
+
+    $sql = "UPDATE `article` SET
+                    `id` = {$id},
+                    `title` = '{$title}',
+                    `category` = '{$category}',
+                    `content` = '{$content}',
+                    `publish` = {$publish},
+                    `modify_date` = '{$modify_date}'
+                    WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

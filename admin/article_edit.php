@@ -29,6 +29,7 @@
         <div class="row">
           <div class="col-xs-12">
             <form id="article">
+              <input type="hidden" id="id" value="<?php echo $datas['id'];?>">
               <div class="form-group">
                 <label for="title">標題</label>
                 <input type="text" class="form-control" id="title" placeholder="輸入標題" value="<?php echo $datas['title'];?>">
@@ -72,8 +73,9 @@
             }else {
               $.ajax({
                 type : "POST",
-                url : "../php/add_article.php",
+                url : "../php/update_article.php",
                 data :　{
+                  'id' : $('#id').val(),
                   'title' : $('#title').val(),
                   'category' : $('#category').val(),
                   'content' : $('#content').val(),
@@ -82,10 +84,10 @@
                 dataType : "html"
               }).done(function(data) {
                 if (data == "yes") {
-                  alert('新增成功，點擊確認回到列表頁');
+                  alert('更新成功，點擊確認回到列表頁');
                   window.location.href = 'article_list.php' ;
                 }else {
-                  alert('新增失敗');
+                  alert('更新失敗');
                 }
               }).fail(function(jqXHR, textStatus, errorThrown) {
                 alert('有錯誤產生，請趕快看 console log');

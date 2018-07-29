@@ -5,3 +5,21 @@
 .panel-heading a {
   color: #fff;
 }
+
+/* .thumbnail {
+  max-height: 300px;
+} */
+
+.add_btn_area {
+  padding-bottom: 20px;
+}
+
+.table th {
+  background-color: #000;
+  color: #fff;
+}
+
+.show_image img,
+.show_video video {
+  width: 300px;
+}

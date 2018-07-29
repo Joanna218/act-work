@@ -1,8 +1,9 @@
-<?php
-  require_once './db.php';
-  require_once './function.php';
+<?
+  require_once '../php/db.php';
 
-  $article = get_article($_GET['i']);
+  if (!isset($_SESSION['is_login']) || !($_SESSION['is_login'])) {
+    header("location: login.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,10 +12,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title><?php echo $article['title'];?></title>
+  <title>後台管理</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body>
@@ -25,9 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <h1><?php echo $article['title'];?></h1>
-            <hr>
-            <?php echo $article['content'];?>
+            <div class="alert alert-success" role="alert">歡迎來到Art</div>
           </div>
         </div>
       </div>

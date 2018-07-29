@@ -18,3 +18,7 @@
   background-color: #000;
   color: #fff;
 }
+
+.show_image img {
+  width: 300px;
+}

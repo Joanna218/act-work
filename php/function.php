@@ -420,3 +420,34 @@
     }
     return $result;
   }
+
+
+  function del_work($id) {
+    $result = null ;
+
+    //比對資料是否存在，若存在就刪除
+    $work = get_edit_work($id);
+    //圖片
+    if (file_exists($work['image_path'])) {
+      unlink($work['image_path']);
+    }
+
+    //影片
+    if (file_exists($work['video_path'])) {
+      unlink($work['video_path']);
+    }
+
+    $sql = "DELETE FROM `works` WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

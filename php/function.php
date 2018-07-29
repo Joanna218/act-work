@@ -267,3 +267,46 @@
     }
     return $result;
   }
+
+  function get_user($id) {
+    $result = null ;
+    $sql = "Select * From `user` where `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      $result = mysqli_fetch_assoc($query);
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }
+
+  function update_user($id, $username, $password, $name) {
+    $result = null ;
+    $password_sql = '';
+
+    if ($password_sql != '') {
+      $password = md5($password);
+      $password_sql = "`password` = '{$password}' ," ;
+    }
+
+    $sql = "UPDATE `user` SET
+                    `username` = '{$username}',
+                    {$password_sql}
+                    `name` = '{$name}'
+                    WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

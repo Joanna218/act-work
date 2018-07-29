@@ -97,6 +97,38 @@
               });
         });
 
+        //刪除上傳圖片
+        $('.del_image').on('click', function() {
+
+          if ($('#image_path').val() != '') {
+            var check_confirm = confirm("你確定要刪除嗎?");
+            if (check_confirm) {
+              $.ajax({
+                  type : "POST",
+                  url : "../php/del_file.php",
+                  data : {
+                    'file' : $('#image_path').val()
+                  },
+                  dataType : "html"
+                }).done(function(data) {
+                  if (data == "yes") {
+                    //清除圖片
+                    $('.show_image').html("");
+                    $('#image_path').val("");
+                    $('input.image').val("");
+                  }else {
+                    console.log('圖片清除失敗'.data);
+                  }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                  alert('有錯誤產生，請趕快看 console log');
+                  console.log(jqHRX, responseText);
+                });
+            }
+          } else {
+            alert('尚未上傳檔案，無法刪除');
+          }
+        });
+
           // $('#work').on('submit', function() {
           //   if ($('#intro').val() == '' || $('#category').val() == '') {
           //     alert('請填妥標題或內文!');

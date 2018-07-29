@@ -170,3 +170,18 @@
     }
     return $result;
   }
+
+  function get_edit_article($id) {
+    $result = null ;
+    $sql = "Select * From `article` where `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      $result = mysqli_fetch_assoc($query);
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

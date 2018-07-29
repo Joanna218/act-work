@@ -374,3 +374,49 @@
     }
     return $result;
   }
+
+  function update_work($id, $intro, $image_path, $video_path, $publish) {
+    $result = null ;
+
+    //比對新資料與舊資料是否相同，若不同砍掉舊資料
+    $work = get_edit_work($id);
+    //圖片
+    if (file_exists($work['image_path'])) {
+      if ($image_path != $work['image_path']) {
+        unlink($work['image_path']);
+      }
+    }
+
+    //影片
+    if (file_exists($work['video_path'])) {
+      if ($video_path != $work['video_path']) {
+        unlink($work['video_path']);
+      }
+    }
+
+    $image_path_sql = "`image_path` = '{$image_path}' ,";
+    if($image_path == '') $image_path_sql = "`image_path` = NULL ,";
+
+    $video_path_sql = "`image_path` = '{$video_path}' ,";
+    if($video_path == '') $video_path_sql = "`video_path` = NULL ,";
+
+    $sql = "UPDATE `works` SET
+                    `id` = {$id},
+                    `intro` = '{$intro}',
+                    {$image_path_sql}
+                    {$video_path_sql}
+                    `publish` = {$publish}
+                    WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

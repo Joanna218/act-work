@@ -17,6 +17,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>後台管理-作品編輯</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -88,6 +89,8 @@
               form_data.append("file", file_data);
               form_data.append("save_path", save_path);
 
+              $('.show_image').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
+
               $.ajax({
                 type : "POST",
                 url : "../php/upload_file.php",
@@ -150,6 +153,8 @@
 
               form_data.append("file", file_data);
               form_data.append("save_path", save_path);
+
+              $('.show_video').html('<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>');
 
               $.ajax({
                 type : "POST",
@@ -225,7 +230,7 @@
                   alert('更新成功，點擊確認回到列表頁');
                   window.location.href = 'work_list.php' ;
                 }else {
-                  alert('更新失敗');
+                  alert('更新失敗'.data);
                 }
               }).fail(function(jqXHR, textStatus, errorThrown) {
                 alert('有錯誤產生，請趕快看 console log');

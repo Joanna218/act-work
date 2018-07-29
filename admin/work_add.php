@@ -131,6 +131,71 @@
           }
         });
 
+        //影片選擇後自動上傳
+        $('input.video').on('change', function() {
+          var file_data = $(this)[0].files[0],
+              save_path = "../files/video/",
+              form_data = new FormData();
+
+              form_data.append("file", file_data);
+              form_data.append("save_path", save_path);
+
+              $.ajax({
+                type : "POST",
+                url : "../php/upload_file.php",
+                data : form_data,
+                cache :　false,
+                processData : false,
+                contentType : false,
+                dataType : "html"
+              }).done(function(data) {
+                if (data == "yes") {
+                  //顯示圖片
+                $('.show_video').html("<video src='"+ save_path + file_data['name'] + "' controls>");
+                $('#video_path').val(save_path + file_data['name']);
+                }else {
+                  console.log(data);
+                }
+              }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert('有錯誤產生，請趕快看 console log');
+                console.log(jqHRX, responseText);
+              });
+        });
+
+        //刪除上傳影片
+        $('.del_video').on('click', function() {
+
+          if ($('#video_path').val() != '') {
+            var check_confirm = confirm("你確定要刪除嗎?");
+            if (check_confirm) {
+              $.ajax({
+                  type : "POST",
+                  url : "../php/del_file.php",
+                  data : {
+                    'file' : $('#video_path').val()
+                  },
+                  dataType : "html"
+                }).done(function(data) {
+                  if (data == "yes") {
+                    //清除圖片
+                    $('.show_video').html("");
+                    $('#video_path').val("");
+                    $('input.video').val("");
+                  }else {
+                    console.log('圖片清除失敗'.data);
+                  }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                  alert('有錯誤產生，請趕快看 console log');
+                  console.log(jqHRX, responseText);
+                });
+            }
+          } else {
+            alert('尚未上傳檔案，無法刪除');
+          }
+        });
+
+
+
           // $('#work').on('submit', function() {
           //   if ($('#intro').val() == '' || $('#category').val() == '') {
           //     alert('請填妥標題或內文!');

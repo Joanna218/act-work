@@ -330,3 +330,34 @@
     }
     return $datas;
   }
+
+  function add_work($intro, $image_path, $video_path, $publish) {
+    $result = null ;
+    $upload_date = date('Y-m-d H:i:s');
+    $create_user_id = $_SESSION['login_user_id'];
+
+    $image_path_value = $image_path;
+    if ($image_path_value == '') {
+      $image_path_value = "NULL";
+    }
+
+    $video_path_value = $video_path;
+    if ($video_path_value == '') {
+      $video_path_value = "NULL";
+    }
+
+    $sql = "INSERT INTO `works` (`intro`, `image_path`, `video_path`, `publish`, `upload_date`, `create_user_id`)
+                        VALUE ('{$intro}', '{$image_path_value}', '{$video_path_value}', {$publish}, '{$upload_date}', {$create_user_id})" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

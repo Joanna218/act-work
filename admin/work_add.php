@@ -194,35 +194,34 @@
           }
         });
 
-
-
-          // $('#work').on('submit', function() {
-          //   if ($('#intro').val() == '' || $('#category').val() == '') {
-          //     alert('請填妥標題或內文!');
-          //   }else {
-          //     $.ajax({
-          //       type : "POST",
-          //       url : "../php/upload_file.php",
-          //       data : form_data,
-          //       cache :　false,
-          //       processDaa : false,
-          //       contentType : false,
-          //       dataType : "html"
-          //     }).done(function(data) {
-          //       console.log(data);
-          //       // if (data == "yes") {
-          //       //   alert('新增成功，點擊確認回到列表頁');
-          //       //   window.location.href = 'article_list.php' ;
-          //       // }else {
-          //       //   alert('新增失敗');
-          //       // }
-          //     }).fail(function(jqXHR, textStatus, errorThrown) {
-          //       alert('有錯誤產生，請趕快看 console log');
-          //       console.log(jqHRX, responseText);
-          //     });
-          // }
-          //   return false;
-          // });
+          $('#work').on('submit', function() {
+            if ($('#intro').val() == '' || $('#category').val() == '') {
+              alert('請填妥標題或內文!');
+            }else {
+              $.ajax({
+                type : "POST",
+                url : "../php/add_work.php",
+                data : {
+                  'intro' : $('#intro').val(),
+                  'image_path' : $('#image_path').val(),
+                  'video_path' :　$('#video_path').val(),
+                  'publish' : $('input[name="publish"]:checked').val()
+                },
+                dataType : "html"
+              }).done(function(data) {
+                if (data == "yes") {
+                  alert('新增成功，點擊確認回到列表頁');
+                  window.location.href = 'work_list.php' ;
+                }else {
+                  alert('新增失敗');
+                }
+              }).fail(function(jqXHR, textStatus, errorThrown) {
+                alert('有錯誤產生，請趕快看 console log');
+                console.log(jqHRX, responseText);
+              });
+          }
+            return false;
+          });
       });
     </script>
 </body>

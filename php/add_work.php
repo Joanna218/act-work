@@ -5,10 +5,10 @@
   $check = add_work($_POST['intro'], $_POST['image_path'], $_POST['video_path'], $_POST['publish']);
 
   if ($check) {
-    //註冊成功
+    //新增成功
     echo 'yes';
   }else {
-    //註冊失敗
+    //新增失敗
     echo 'no';
   }
 ?>

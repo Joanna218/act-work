@@ -229,3 +229,41 @@
     }
     return $result;
   }
+
+  function get_all_member() {
+    //儲存要發布的文章內容
+    $datas = array();
+    $sql = "Select * From `user`" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_num_rows($query) > 0) {
+        while ($row = mysqli_fetch_assoc($query)) {
+          $datas[] = $row;
+        }
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $datas;
+  }
+
+  function del_member($id) {
+    $result = null ;
+
+    $sql = "DELETE FROM `user` WHERE `id` = {$id}" ;
+    $query = mysqli_query($_SESSION['link'], $sql);
+
+    if ($query) {
+      //SQL執行成功
+      if (mysqli_affected_rows($_SESSION['link']) == 1 ) {
+        $result = true ;
+      }
+    }else {
+      //SQL執行失敗
+      echo "{$sql}語法請求失敗：".mysqli_connect_error();
+    }
+    return $result;
+  }

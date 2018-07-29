@@ -18,3 +18,8 @@
   background-color: #000;
   color: #fff;
 }
+
+.show_image img,
+.show_video video {
+  width: 300px;
+}

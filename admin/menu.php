@@ -16,7 +16,7 @@
     case 'member_list':
     case 'member_edit':
     case 'member_add':
-      $page_index = 2;
+      $page_index = 3;
       break;
     default:
     //預設為首頁

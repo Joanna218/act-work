@@ -34,13 +34,17 @@
               </div>
               <div class="form-group">
                 <label for="content">圖片上傳</label>
-                <input type="file"  class="image">
+                <input type="file"  class="image" accept="image/gif, image/jpeg, image/png">
                 <div class="show_image"></div>
                 <input type="hidden" id="image_path" value="">
                 <a href="javascript:void(0);" class="del_image btn btn-default">刪除</a>
-                </div>
+              </div>
               <div class="form-group">
                 <label for="content">影片上傳</label>
+                <input type="file"  class="video" accept="video/mp4">
+                <div class="show_video"></div>
+                <input type="hidden" id="video_path" value="">
+                <a href="javascript:void(0);" class="del_video btn btn-default">刪除</a>
               </div>
               <div class="form-group">
                 <label class="radio-inline">
@@ -64,9 +68,7 @@
     <script>
       $(function() {
 
-
         //圖片選擇後自動上傳
-
         $('input.image').on('change', function() {
           var file_data = $(this)[0].files[0],
               save_path = "../files/image/",
